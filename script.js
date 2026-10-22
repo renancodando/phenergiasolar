@@ -8,7 +8,6 @@ const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 
 const sky = $('#liveSky');
-const sun = $('#sun');
 const trackSun = $('#trackSun');
 const weatherLabel = $('#weatherLabel');
 const localTime = $('#localTime');
@@ -57,7 +56,14 @@ function localParts() {
     second: '2-digit',
     hour12: false
   });
-  const parts = Object.fromEntries(formatter.formatToParts(new Date()).filter(p => p.type !== 'literal').map(p => [p.type, p.value]));
+
+  const parts = Object.fromEntries(
+    formatter
+      .formatToParts(new Date())
+      .filter(part => part.type !== 'literal')
+      .map(part => [part.type, part.value])
+  );
+
   return {
     hour: Number(parts.hour),
     minute: Number(parts.minute),
@@ -79,7 +85,9 @@ function updateSunPosition() {
   const sunriseMinutes = minutesFromTime(solarWindow.sunrise);
   const sunsetMinutes = minutesFromTime(solarWindow.sunset);
   const daylight = Math.max(1, sunsetMinutes - sunriseMinutes);
-  const isDay = liveWeather ? liveWeather.is_day === 1 : currentMinutes >= sunriseMinutes && currentMinutes <= sunsetMinutes;
+  const isDay = liveWeather
+    ? liveWeather.is_day === 1
+    : currentMinutes >= sunriseMinutes && currentMinutes <= sunsetMinutes;
 
   let progress = (currentMinutes - sunriseMinutes) / daylight;
   progress = Math.max(0, Math.min(1, progress));
@@ -103,6 +111,19 @@ function updateSunPosition() {
   }
 }
 
+function setAtmosphere(clouds, light) {
+  const cloudOpacity = Math.min(.84, Math.max(.08, clouds / 100 * .82));
+  const saturation = .78 + light * .3;
+  const brightness = .72 + light * .28;
+
+  $$('.clouds').forEach(cloud => {
+    cloud.style.opacity = cloudOpacity.toFixed(2);
+  });
+
+  sky.style.filter = `saturate(${saturation.toFixed(2)}) brightness(${brightness.toFixed(2)})`;
+  sky.style.setProperty('--light', light.toFixed(2));
+}
+
 function applyWeather(data) {
   const current = data.current;
   liveWeather = current;
@@ -118,8 +139,7 @@ function applyWeather(data) {
   const light = current.is_day === 1 ? Math.max(.32, 1 - clouds / 145) : .05;
   const codeInfo = weatherCodes[current.weather_code] || ['condição variável', 'Variável'];
 
-  sky.style.setProperty('--cloud', `${clouds}%`);
-  sky.style.setProperty('--light', light.toFixed(2));
+  setAtmosphere(clouds, light);
 
   weatherLabel.textContent = codeInfo[0];
   conditionShort.textContent = codeInfo[1];
@@ -133,8 +153,8 @@ function applyWeather(data) {
     hour: '2-digit',
     minute: '2-digit'
   }).format(new Date());
-  lastUpdate.textContent = `DADOS ${updated} · SERRA/ES`;
 
+  lastUpdate.textContent = `DADOS ${updated} · SERRA/ES`;
   updateSunPosition();
 }
 
@@ -149,7 +169,10 @@ async function loadWeather() {
   });
 
   try {
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`, { cache: 'no-store' });
+    const response = await fetch(`https://api.open-meteo.com/v1/forecast?${params.toString()}`, {
+      cache: 'no-store'
+    });
+
     if (!response.ok) throw new Error('weather unavailable');
     const data = await response.json();
     applyWeather(data);
@@ -164,8 +187,7 @@ async function loadWeather() {
     feelsLike.textContent = '--';
     sunriseTime.textContent = solarWindow.sunrise;
     sunsetTime.textContent = solarWindow.sunset;
-    sky.style.setProperty('--cloud', '24%');
-    sky.style.setProperty('--light', '.82');
+    setAtmosphere(24, .82);
     updateSunPosition();
   }
 }
@@ -179,8 +201,9 @@ function updateScroll() {
 
 function initReveal() {
   const targets = $$('.reveal');
+
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    targets.forEach(el => el.classList.add('is-visible'));
+    targets.forEach(element => element.classList.add('is-visible'));
     return;
   }
 
@@ -190,9 +213,12 @@ function initReveal() {
       entry.target.classList.add('is-visible');
       observer.unobserve(entry.target);
     });
-  }, { threshold: .12, rootMargin: '0px 0px -7% 0px' });
+  }, {
+    threshold: .12,
+    rootMargin: '0px 0px -7% 0px'
+  });
 
-  targets.forEach(el => observer.observe(el));
+  targets.forEach(element => observer.observe(element));
 }
 
 function closeMenu() {
@@ -246,7 +272,10 @@ function initScenarioTilt() {
       const y = (event.clientY - rect.top) / rect.height - .5;
       card.style.transform = `perspective(800px) rotateY(${x * 3}deg) rotateX(${y * -3}deg)`;
     });
-    card.addEventListener('pointerleave', () => card.style.transform = '');
+
+    card.addEventListener('pointerleave', () => {
+      card.style.transform = '';
+    });
   });
 }
 
