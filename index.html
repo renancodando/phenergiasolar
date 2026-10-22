@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07130f">
+  <meta name="description" content="PH Energia Solar — projetos e instalação de energia solar em Serra, Espírito Santo.">
+  <title>PH Energia Solar — Serra, ES</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&family=Syne:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"PH Energia Solar",
+    "telephone":"+55 27 99610-5909",
+    "address":{
+      "@type":"PostalAddress",
+      "streetAddress":"Av. Região Sudeste, 148",
+      "addressLocality":"Serra",
+      "addressRegion":"ES",
+      "postalCode":"29166-200",
+      "addressCountry":"BR"
+    },
+    "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"14"}
+  }
+  </script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="page-progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#inicio" aria-label="PH Energia Solar — início">
+      <span class="brand-mark"><i></i><b>PH</b></span>
+      <span class="brand-copy">ENERGIA <em>SOLAR</em></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Navegação principal">
+      <a href="#ao-vivo">Sol ao vivo</a>
+      <a href="#metodo">Como fazemos</a>
+      <a href="#reputacao">Reputação</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <a class="header-cta" href="https://wa.me/5527996105909?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20PH%20Energia%20Solar%20e%20quero%20entender%20uma%20solu%C3%A7%C3%A3o%20para%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer">
+      <span>Conversar</span><b>↗</b>
+    </a>
+
+    <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu"><i></i><i></i></button>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#ao-vivo">Sol ao vivo <span>01</span></a>
+    <a href="#metodo">Como fazemos <span>02</span></a>
+    <a href="#reputacao">Reputação <span>03</span></a>
+    <a href="#contato">Contato <span>04</span></a>
+  </div>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="live-sky" id="liveSky" aria-hidden="true">
+        <div class="sky-glow"></div>
+        <div class="sun-orbit"><i class="sun" id="sun"></i></div>
+        <div class="clouds cloud-a" id="cloudA"><i></i><i></i><i></i></div>
+        <div class="clouds cloud-b" id="cloudB"><i></i><i></i><i></i></div>
+        <div class="stars" id="stars"></div>
+        <div class="horizon"></div>
+        <div class="city-silhouette"></div>
+        <div class="panel-field">
+          <div class="panel-row row-a"><i></i><i></i><i></i><i></i></div>
+          <div class="panel-row row-b"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="panel-row row-c"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="panel-reflection" id="panelReflection"></div>
+        </div>
+      </div>
+
+      <div class="hero-grid" aria-hidden="true"></div>
+
+      <div class="hero-status" id="heroStatus">
+        <span class="live-dot"></span>
+        <div>
+          <small>CÉU DE SERRA · AGORA</small>
+          <strong id="weatherLabel">conectando ao céu...</strong>
+        </div>
+      </div>
+
+      <div class="hero-copy">
+        <p class="kicker">ENERGIA SOLAR · SERRA / ES</p>
+        <h1>O sol já está<br><em>trabalhando.</em></h1>
+        <p class="hero-lead">A pergunta é quanto dessa energia pode começar a trabalhar para você.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="https://wa.me/5527996105909?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20PH%20Energia%20Solar%20e%20quero%20uma%20avalia%C3%A7%C3%A3o%20para%20o%20meu%20im%C3%B3vel." target="_blank" rel="noopener noreferrer"><span>Quero avaliar meu imóvel</span><b>↗</b></a>
+          <a class="text-action" href="#ao-vivo">Ver o sol em tempo real <span>↓</span></a>
+        </div>
+      </div>
+
+      <div class="hero-readout">
+        <div><small>HORA LOCAL</small><strong id="localTime">--:--</strong></div>
+        <div><small>RADIAÇÃO AGORA</small><strong><span id="radiation">--</span> <i>W/m²</i></strong></div>
+        <div><small>NUVENS</small><strong><span id="cloudCover">--</span><i>%</i></strong></div>
+      </div>
+
+      <div class="hero-note">A atmosfera desta tela acompanha as condições meteorológicas de Serra.</div>
+    </section>
+
+    <section class="live-section" id="ao-vivo">
+      <div class="section-index">01 <span>/</span> SOL AO VIVO</div>
+      <div class="live-intro reveal">
+        <p class="eyebrow">O CÉU COMO INTERFACE</p>
+        <h2>Não colocamos um sol<br>decorativo no site.</h2>
+        <p>Ele acompanha o dia real. A posição horizontal avança entre nascer e pôr do sol; a altura segue o arco do dia; nuvens e intensidade luminosa respondem às condições meteorológicas atuais.</p>
+      </div>
+
+      <div class="solar-console reveal">
+        <div class="console-top">
+          <div>
+            <span class="signal"></span>
+            <small>PH / LIVE SOLAR FEED</small>
+          </div>
+          <span id="lastUpdate">ATUALIZANDO...</span>
+        </div>
+
+        <div class="console-main">
+          <div class="sun-track">
+            <div class="track-line"></div>
+            <i class="track-sun" id="trackSun"></i>
+            <span class="sunrise"><b id="sunriseTime">--:--</b><small>NASCER</small></span>
+            <span class="sunset"><b id="sunsetTime">--:--</b><small>PÔR DO SOL</small></span>
+          </div>
+
+          <div class="weather-data">
+            <article><small>TEMPERATURA</small><strong><span id="temperature">--</span>°</strong><p>temperatura do ar</p></article>
+            <article><small>SENSAÇÃO</small><strong><span id="feelsLike">--</span>°</strong><p>sensação térmica</p></article>
+            <article><small>CONDIÇÃO</small><strong class="condition" id="conditionShort">--</strong><p>leitura meteorológica</p></article>
+          </div>
+        </div>
+
+        <p class="console-source">Dados meteorológicos atualizados automaticamente. Se a conexão falhar, a experiência mantém o ciclo solar pela hora local.</p>
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="manifesto-word" aria-hidden="true">LUZ</div>
+      <div class="manifesto-copy reveal">
+        <p class="eyebrow">MENOS PROMESSA. MAIS LEITURA DO SEU CENÁRIO.</p>
+        <h2>Energia solar não começa<br>no painel. <em>Começa no projeto.</em></h2>
+      </div>
+      <div class="manifesto-side reveal">
+        <span></span>
+        <p>Consumo, espaço, incidência solar, estrutura e expectativa precisam conversar antes de qualquer instalação.</p>
+      </div>
+    </section>
+
+    <section class="method" id="metodo">
+      <div class="section-index light">02 <span>/</span> COMO FAZEMOS</div>
+      <div class="method-head reveal">
+        <p class="eyebrow">DO PRIMEIRO CONTATO À GERAÇÃO</p>
+        <h2>Quatro movimentos.<br>Um sistema que precisa<br><em>fazer sentido.</em></h2>
+      </div>
+
+      <div class="method-list">
+        <article class="method-item reveal">
+          <span>01</span>
+          <div><small>ENTENDER</small><h3>Seu consumo entra primeiro.</h3><p>Antes de pensar em placas, a conversa começa pela necessidade do imóvel e pela rotina de consumo.</p></div>
+          <i>↘</i>
+        </article>
+        <article class="method-item reveal">
+          <span>02</span>
+          <div><small>DESENHAR</small><h3>O sistema ganha proporção.</h3><p>O projeto organiza potência, espaço e instalação para que a solução seja coerente com o cenário.</p></div>
+          <i>↘</i>
+        </article>
+        <article class="method-item reveal">
+          <span>03</span>
+          <div><small>EXECUTAR</small><h3>Projeto vira infraestrutura.</h3><p>A instalação precisa ser limpa, segura e pensada para funcionar como parte do imóvel.</p></div>
+          <i>↘</i>
+        </article>
+        <article class="method-item reveal">
+          <span>04</span>
+          <div><small>ACOMPANHAR</small><h3>Entrega não é desaparecimento.</h3><p>Atendimento e clareza também fazem parte da experiência depois que o sistema entra em operação.</p></div>
+          <i>↘</i>
+        </article>
+      </div>
+    </section>
+
+    <section class="reputation" id="reputacao">
+      <div class="reputation-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="section-index">03 <span>/</span> REPUTAÇÃO</div>
+      <div class="rating reveal">
+        <div class="rating-number">5,0</div>
+        <div class="rating-copy"><span>★★★★★</span><p>14 avaliações públicas</p><small>Perfil público da PH Energia Solar em Serra</small></div>
+      </div>
+
+      <div class="reputation-copy reveal">
+        <p class="eyebrow">O QUE APARECE QUANDO CLIENTES FALAM</p>
+        <h2>Rapidez.<br>Transparência.<br><em>Profissionalismo.</em></h2>
+        <p>São pontos que se repetem nas avaliações públicas da empresa. Em vez de inventar números grandiosos, preferimos mostrar o que já existe: gente recomendando o trabalho.</p>
+      </div>
+
+      <div class="trust-strip reveal">
+        <span><b>01</b> Atendimento</span>
+        <span><b>02</b> Clareza</span>
+        <span><b>03</b> Execução</span>
+        <span><b>04</b> Recomendação</span>
+      </div>
+    </section>
+
+    <section class="decision">
+      <div class="decision-head reveal">
+        <p class="eyebrow">QUAL É O SEU CENÁRIO?</p>
+        <h2>Comece pela pergunta<br>certa para o seu imóvel.</h2>
+      </div>
+
+      <div class="scenario-grid">
+        <a class="scenario reveal" href="https://wa.me/5527996105909?text=Ol%C3%A1%2C%20quero%20avaliar%20energia%20solar%20para%20minha%20casa." target="_blank" rel="noopener noreferrer"><span>01</span><h3>Casa</h3><p>Quero entender se meu telhado e meu consumo fazem sentido para energia solar.</p><b>Conversar ↗</b></a>
+        <a class="scenario reveal" href="https://wa.me/5527996105909?text=Ol%C3%A1%2C%20quero%20avaliar%20energia%20solar%20para%20meu%20com%C3%A9rcio%20ou%20empresa." target="_blank" rel="noopener noreferrer"><span>02</span><h3>Negócio</h3><p>Quero avaliar uma solução para reduzir a dependência da rede no meu empreendimento.</p><b>Conversar ↗</b></a>
+        <a class="scenario reveal" href="https://wa.me/5527996105909?text=Ol%C3%A1%2C%20j%C3%A1%20tenho%20algumas%20informa%C3%A7%C3%B5es%20e%20quero%20comparar%20uma%20solu%C3%A7%C3%A3o%20solar." target="_blank" rel="noopener noreferrer"><span>03</span><h3>Já pesquisei</h3><p>Já recebi informação ou proposta e quero conversar com outra empresa antes de decidir.</p><b>Conversar ↗</b></a>
+      </div>
+    </section>
+
+    <section class="location">
+      <div class="location-copy reveal">
+        <p class="section-index light">04 <span>/</span> SERRA</p>
+        <p class="eyebrow">PH ENERGIA SOLAR</p>
+        <h2>Barcelona.<br><em>Serra, ES.</em></h2>
+        <p>Av. Região Sudeste, 148<br>Barcelona · Serra · ES<br>CEP 29166-200</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=PH+Energia+Solar+Av+Regiao+Sudeste+148+Barcelona+Serra+ES" target="_blank" rel="noopener noreferrer">Abrir no mapa <span>↗</span></a>
+      </div>
+      <div class="location-visual reveal" aria-hidden="true">
+        <div class="radar"><i></i><i></i><i></i><b>PH</b></div>
+        <div class="coordinates"><small>BASE LOCAL</small><strong>SERRA / ES</strong><span>ENERGIA QUE COMEÇA AQUI</span></div>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <div class="contact-sun" aria-hidden="true"></div>
+      <div class="contact-copy reveal">
+        <p class="eyebrow">UM PROJETO COMEÇA COM CONTEXTO.</p>
+        <h2>Mostre seu cenário.<br><em>A PH conversa com você.</em></h2>
+      </div>
+      <a class="big-whatsapp reveal" href="https://wa.me/5527996105909?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20PH%20Energia%20Solar%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener noreferrer"><span>Falar no WhatsApp</span><b>↗</b></a>
+      <div class="contact-meta reveal"><span>(27) 99610-5909</span><span>Seg–Sex · 09:00–18:00</span><span>Serra · Espírito Santo</span></div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#inicio"><span class="brand-mark"><i></i><b>PH</b></span><span class="brand-copy">ENERGIA <em>SOLAR</em></span></a>
+    <p>Energia solar em Serra, ES.</p>
+    <span>© <b id="year"></b> PH</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
